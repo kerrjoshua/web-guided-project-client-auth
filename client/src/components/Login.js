@@ -20,6 +20,11 @@ class Login extends React.Component {
 
   login = e => {
     e.preventDefault();
+    axios.post('http://localhost:5001/api/login', this.state.credentials)
+    .then(res => {localStorage.setItem('token', res.data.token);
+    this.props.history.push('/protected')
+    })
+    .catch(err => console.log(err))
   };
 
   render() {
@@ -38,7 +43,7 @@ class Login extends React.Component {
             value={this.state.credentials.password}
             onChange={this.handleChange}
           />
-          <button>Log in</button>
+          <button >Log in</button>
         </form>
       </div>
     );
